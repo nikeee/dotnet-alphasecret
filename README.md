@@ -14,7 +14,7 @@ Check out the [releases section](https://github.com/nikeee/dotnet-alphasecret/re
 # Inspect folder:
 ./AlphaSecret examples
 
-# Inspect single file
+# Inspect single file:
 ./AlphaSecret examples/color-suspicious.png
 
 # Reading targets from stdin:
