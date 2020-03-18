@@ -35,12 +35,8 @@ namespace AlphaSecret
                     if (o.Verbose)
                         Console.WriteLine("Reading paths from stdin");
 
-                    var line = Console.ReadLine();
-                    while (line != null)
-                    {
+                    for (var line = Console.ReadLine(); line != null; line = Console.ReadLine())
                         ProcessPath(o, line);
-                        line = Console.ReadLine();
-                    }
                 }
                 else if (o.InputDirectoriesAndFiles != null)
                 {
@@ -88,34 +84,46 @@ namespace AlphaSecret
 
         static void ProcessFile(Options options, string path)
         {
-            using var img = Image.Load<Rgba32>(path);
-
-            var isImageSuspicious = IsImageSuspicious(img);
-
-            if (isImageSuspicious)
+            try
             {
-                Console.WriteLine(
-                    options.Verbose
-                        ? $"Image is suspicious: {path}"
-                        : path
-                );
+                using var img = Image.Load<Rgba32>(path);
 
-                if (!options.NoRestore)
+                var isImageSuspicious = IsImageSuspicious(img);
+
+                if (isImageSuspicious)
                 {
-                    RestoreImageData(img);
+                    Console.WriteLine(
+                        options.Verbose
+                            ? $"Image is suspicious: {path}"
+                            : path
+                    );
 
-                    var restoredPath = Path.ChangeExtension(path, Path.GetExtension(path) + "-restored");
+                    if (!options.NoRestore)
+                    {
+                        RestoreImageData(img);
 
-                    if (!options.Overwrite && File.Exists(restoredPath))
-                        Console.Error.WriteLine($"Could not restore image to {restoredPath}, file already exists");
+                        var restoredPath = Path.ChangeExtension(path, Path.GetExtension(path) + "-restored");
 
-                    using var s = File.Create(restoredPath);
-                    img.SaveAsPng(s);
+                        // TODO: This is a race condition. ¯\_(ツ)_/¯
+                        if (!options.Overwrite && File.Exists(restoredPath))
+                            Console.Error.WriteLine($"Could not restore image to {restoredPath}, file already exists");
+
+                        using var s = File.Create(restoredPath);
+                        img.SaveAsPng(s);
+                    }
+
                 }
-
+                else if (options.Verbose)
+                    Console.WriteLine($"File seems ok: {path}");
             }
-            else if (options.Verbose)
-                Console.WriteLine($"File seems ok: {path}");
+            catch (Exception ex) when (ex is ImageFormatException || ex is InvalidDataException)
+            {
+                Console.Error.WriteLine($"Could not check image, it seems to be a broken file \"{path}\": {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"Error processing file or directory \"{path}\": {ex.Message}");
+            }
         }
 
         static int RestoreImageData(Image<Rgba32> img)
