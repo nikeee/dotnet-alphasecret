@@ -159,6 +159,6 @@ namespace AlphaSecret
             return false;
         }
 
-        static bool HasRgbData(Rgba32 pixel) => (pixel.R | pixel.G | pixel.G) != 0;
+        static bool HasRgbData(Rgba32 pixel) => (pixel.R | pixel.G | pixel.B) != 0;
     }
 }
