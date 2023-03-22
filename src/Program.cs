@@ -15,7 +15,7 @@ namespace AlphaSecret
         {
             [Option('v', "verbose", Required = false, HelpText = "Set output to verbose messages.")]
             public bool Verbose { get; set; }
-            [Option("overwrite", Required = false, HelpText = "Overwrite exisiting files when restoring files.")]
+            [Option("overwrite", Required = false, HelpText = "Overwrite existing files when restoring files.")]
             public bool Overwrite { get; set; }
             [Option('n', "no-restore", Required = false, HelpText = "Disabled restoring of suspicious files.")]
             public bool NoRestore { get; set; }
