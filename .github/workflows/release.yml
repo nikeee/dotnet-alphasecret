@@ -10,13 +10,11 @@ jobs:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v3
+      - uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 3.1.102
+          dotnet-version: 7.x
 
       - name: Build
         run: |

@@ -4,14 +4,11 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v3
+    - uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 3.1.102
-    - name: Build
-      run: dotnet build --configuration Release --runtime linux-x64
+        dotnet-version: 7.x
+    - run: dotnet build --configuration Release --runtime linux-x64
