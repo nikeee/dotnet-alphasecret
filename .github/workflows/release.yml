@@ -24,15 +24,15 @@ jobs:
 
       - name: Pack Files
         run: |
-          mv bin/Release/netcoreapp3.1/linux-x64/publish/AlphaSecret .
+          mv bin/Release/net9.0/linux-x64/publish/AlphaSecret .
           GZIP=-9 tar -czvf AlphaSecret-linux-x64.tar.gz ./AlphaSecret
           rm AlphaSecret
 
-          mv bin/Release/netcoreapp3.1/win-x64/publish/AlphaSecret.exe .
+          mv bin/Release/net9.0/win-x64/publish/AlphaSecret.exe .
           zip -9 --junk-paths AlphaSecret-win-x64.zip ./AlphaSecret.exe
           rm AlphaSecret.exe
 
-          mv bin/Release/netcoreapp3.1/osx-x64/publish/AlphaSecret .
+          mv bin/Release/net9.0/osx-x64/publish/AlphaSecret .
           GZIP=-9 tar -czvf AlphaSecret-osx-x64.tar.gz ./AlphaSecret
           rm AlphaSecret
 

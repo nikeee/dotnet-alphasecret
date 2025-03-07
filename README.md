@@ -28,17 +28,17 @@ git clone https://github.com/nikeee/dotnet-alphasecret
 # Linux:
 dotnet publish -c Release --self-contained --runtime linux-x64
 # Resulting executable will be in:
-./bin/Release/netcoreapp3.1/linux-x64/publish/AlphaSecret
+./bin/Release/net9.0/linux-x64/publish/AlphaSecret
 
 # Windows:
 dotnet publish -c Release --self-contained --runtime win-x64
 # Resulting executable will be in:
-./bin/Release/netcoreapp3.1/win-x64/publish/AlphaSecret.exe
+./bin/Release/net9.0/win-x64/publish/AlphaSecret.exe
 
 # Linux:
 dotnet publish -c Release --self-contained --runtime osx-x64
 # Resulting executable will be in:
-./bin/Release/netcoreapp3.1/osx-x64/publish/AlphaSecret
+./bin/Release/net9.0/osx-x64/publish/AlphaSecret
 ```
 
 ## Why?
